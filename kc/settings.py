@@ -8,8 +8,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# -*- coding: UTF-8 -*-
 import os
+import sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -25,7 +26,6 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -51,7 +51,6 @@ ROOT_URLCONF = 'kc.urls'
 
 WSGI_APPLICATION = 'kc.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
@@ -61,6 +60,34 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# External libraries
+
+PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'kc', 'media')
+
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'kc', 'static')
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, 'kc', 'site_static'),
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_PATH, 'kc', 'templates'),
+)
+
+LOCALE_PATHS = (
+    os.path.join(PROJECT_PATH, 'locale'),
+)
+
+FILE_UPLOAD_TEMP_DIR = os.path.join(PROJECT_PATH, 'kc', 'tmp')
+
+EXTERNAL_LIBS_PATH = os.path.join(PROJECT_PATH, 'externals', 'libs')
+
+EXTERNAL_APPS_PATH = os.path.join(PROJECT_PATH, 'externals', 'apps')
+
+sys.path = ['', EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH] + sys.path
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -78,5 +105,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+
 
 STATIC_URL = '/static/'
